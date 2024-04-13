@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Grocery Store</title>
+  <style>
+    /* Basic styling for page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d4d8d4;
+    }
+
+    .navbar {
+      background-color: #d7ffc6;
+     /* background-color: white ;*/
+      overflow: hidden;
+      border-bottom: 2px solid #ddd;
+      border: 2px solid green;
+      margin-bottom: 2px;
+      /*border-bottom-left-radius: 20px;*/
+     /*  border-bottom-right-radius: 20px;*/
+
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #000000;
+      text-align: center;
+      padding: 10px 15px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      font-size: 20px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      
+    }
+
+    .navbar a:hover {
+      background-color: #45a049;
+
+    }
+
+    
+
+    .add button {
+      background-color: #41f550;
+    }
+
+    .navbar .btn {
+      float: right;
+      background-color: #0b510d;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    
+
+    .container {
+      max-width: 800px;
+      /* Reduce container width */
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .product {
+      display: flex;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+      background-color: transparent;
+    }
+
+    .product:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .product img {
+      max-width: 100px;
+      /* Reduce image width */
+      height: auto;
+      margin-right: 20px;
+    }
+
+    .product-info {
+      flex: 1;
+      padding: 20px;
+      background-color: #c7ffd1;
+    }
+
+    .product-info h2 {
+      margin-top: 0;
+      font-size: 16px;
+      /* Reduce font size */
+    }
+
+    .product-info p {
+      color: #666;
+      font-size: 14px;
+      /* Reduce font size */
+    }
+
+
+    .header {
+      background-image: url("https://midwestcommunity.org/wp-content/uploads/2018/02/Groceries-ThinkstockPhotos-836782690.jpg");
+     
+
+     
+      background-position: center;
+      background-attachment: scroll;
+      text-align: center;
+      padding: 60px 0;
+      font-size: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+    }
+
+    .addtocart {
+      background-color: #41f550;
+      border: none;
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
+
+    .addtocart:hover {
+      background-color: #0f981b;
+      border: 2px solid green;
+      border-radius: 10px;
+      padding: 5px 10px;
+    }
+   
+    .add {
+      width: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: auto;
+      margin-top: 10px;
+
+    }
+   
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="#" class="logo" style="font-weight: bolder;">Grocery Shop</a>
+    <a href="index.html">Home</a>
+    <a href="index.html">Shop</a>
+    <a href="index.html">Order</a>
+    <a href="index.htmll">SpeakOrder</a>
+    <a href="index.html">Contact</a>
+    <a href="profile.html">Profile</a>
+    <a href="login.php" style="color: #0b510d;">Login</a>
+    <a href="register.php" style="color: #0b510d;">Register</a>
+    <div class="add">
+      
+    </div>
+  </div>
+
+
+  <div class="header">
+    <h1>Welcome to our Online Grocery Store</h1>
+    <p>Order fresh groceries online and get them delivered to your doorstep!</p>
+  </div>
+
+
+  <!-- Convenience Section -->
+  <div class="container">
+    <h1>Convenience</h1>
+
+    <!-- Product 1: Ready-to-Eat Meals -->
+    <div class="product">
+      <img src="Assets/img1.webp" alt="Ready-to-Eat Meals">
+      <div class="product-info">
+        <h2>Ready-to-Eat Meals</h2>
+        <p>Price: ₹50.99 each</p>
+        <p>Description: Convenient and delicious meals ready to heat and eat.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+
+    <!-- Product 2: Pre-cut Fruits and Vegetables -->
+    <div class="product">
+      <img src="Assets/img2 .png" alt="Pre-cut Fruits and Vegetables">
+      <div class="product-info">
+        <h2>Pre-cut Fruits and Vegetables</h2>
+        <p>Price: Varies</p>
+        <p>Description: Fresh fruits and vegetables conveniently pre-cut for quick use.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+
+    <!-- Organic Products Section -->
+    <h1>Organic Products</h1>
+
+    <!-- Product 1: Organic Produce -->
+    <div class="product">
+      <img src="Assets/img3.webp" alt="Organic Produce">
+      <div class="product-info">
+        <h2>Organic Produce</h2>
+        <p>Price: Varies</p>
+        <p>Description: Fresh organic fruits and vegetables sourced from local farms.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+
+    <!-- Product 2: Organic Dairy Products -->
+    <div class="product">
+      <img src="Assets/img4.png" alt="Organic Dairy Products">
+      <div class="product-info">
+        <h2>Organic Dairy Products</h2>
+        <p>Price: Starting from ₹200.99</p>
+        <p>Description: Organic milk, cheese, and yogurt from grass-fed cows.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+
+    <!-- Fresh Products Section -->
+    <h1>Fresh Products</h1>
+
+    <!-- Product 1: Fresh Meat -->
+    <div class="product">
+      <img src="Assets/img5.webp" alt="Fresh Meat">
+      <div class="product-info">
+        <h2>Fresh Milk</h2>
+        <p>Price: Varies</p>
+        <p>Description: Dairy Products like milk ,lassie includeing various companies.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+
+    <!-- Product 2: Fresh Seafood -->
+    <div class="product">
+      <img src="Assets/img6.webp" alt="Fresh Seafood">
+      <div class="product-info">
+        <h2>Fresh Sabudana</h2>
+        <p>Price: Starting from ₹60.99 per pound</p>
+        <p>Description: Fresh Sabuadana selected by amitabh bachhan.</p>
+        <button class="addtocart">Add To Cart</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <center>
+      <div style="margin-bottom: 30px;" class="foo">
+        Designed By Vraj Makvana | &copy;copyright 2024
+      </div>
+    </center>
+  </footer>
+  <script>
+    let n = 0;
+    let addToCart = document.getElementsByClassName("addtocart");
+    Array.from(addToCart).forEach((e) => {
+      e.addEventListener("click", () => {
+        n = n + 1;
+        let btn = document.getElementById("data");
+        btn.innerHTML = n + " Products ";
+      })
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Controlled Grocery List</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #7eff83;
+      overflow: hidden;
+      border-bottom: 2px solid #ddd;
+      border: 2px solid black;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #000000;
+      text-align: center;
+      padding: 10px 15px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      font-size: 20px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar a:hover {
+      background-color: #45a049;
+
+    }
+
+    .add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: auto;
+      margin-top: 10px;
+
+    }
+
+    .add button {
+      background-color: #41f550;
+    }
+
+    .navbar .btn {
+      float: right;
+      background-color: #0b510d;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    .add {
+      width: 130px;
+      margin: auto;
+    }
+
+    #list-container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    #grocery-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #grocery-list li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+    }
+
+    #grocery-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    #input-error {
+      color: red;
+      display: none;
+    }
+
+    #controls {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="#" class="logo">Grocery Shop</a>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="order.html">Order</a>
+    <a href="speak.html">SpeakOrder</a>
+    <a href="#contact">Contact</a>
+    <a href="login.html" style="color: #0b510d;">Login</a>
+    <a href="register.html" style="color: #0b510d;">Register</a>
+    <div class="add">
+      <p id="data">0 Add To Cart</p>
+    </div>
+  </div>
+
+  <h1>Voice Controlled Grocery List</h1>
+
+  <div id="controls">
+    <button id="start-btn" onclick="startSpeechRecognition()">Start</button>
+    <button id="stop-btn" onclick="stopSpeechRecognition()" disabled>Stop</button>
+  </div>
+
+  <div id="list-container">
+    <ul id="grocery-list">
+      <li>Apples</li>
+      <li>Mag</li>
+      <li>Rice</li>
+    </ul>
+    <p id="input-error">Sorry, your browser doesn't support speech recognition.</p>
+  </div>
+
+  <script>
+    // JavaScript code
+    const groceryList = document.getElementById("grocery-list");
+    const inputError = document.getElementById("input-error");
+    let recognition;
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+
+      recognition.onresult = function (event) {
+        const item = event.results[0][0].transcript.trim();
+        addItemToList(item);
+      };
+
+      recognition.onerror = function (event) {
+        console.error("Speech recognition error:", event.error);
+      };
+    } else {
+      inputError.style.display = "block";
+    }
+
+    function addItemToList(item) {
+      const listItem = document.createElement("li");
+      listItem.textContent = item;
+      groceryList.appendChild(listItem);
+    }
+
+    function startSpeechRecognition() {
+      if (recognition) {
+        recognition.start();
+        document.getElementById("start-btn").disabled = true;
+        document.getElementById("stop-btn").disabled = false;
+      }
+    }
+
+    function stopSpeechRecognition() {
+      if (recognition) {
+        recognition.stop();
+        document.getElementById("start-btn").disabled = false;
+        document.getElementById("stop-btn").disabled = true;
+      }
+    }
+  </script>
+</body>
+
+</html>

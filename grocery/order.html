@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Tracking - Online Grocery Store</title>
+  <style>
+    /* CSS styles */
+
+    .navbar {
+      background-color: #7eff83;
+      overflow: hidden;
+      border-bottom: 2px solid #ddd;
+      border: 2px solid black;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #000000;
+      text-align: center;
+      padding: 10px 15px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      font-size: 20px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar a:hover {
+      background-color: #45a049;
+
+    }
+
+    .add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: auto;
+      margin-top: 10px;
+
+    }
+
+    .add button {
+      background-color: #41f550;
+    }
+
+    .navbar .btn {
+      float: right;
+      background-color: #0b510d;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+    }
+
+    .add {
+      width: 130px;
+      margin: auto;
+    }
+
+
+    /* ---------- */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f2f2f2;
+      padding: 5px;
+      text-align: center;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #map {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    #order-status {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 20px;
+    }
+
+    #order-status p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="#" class="logo"  style="font-weight: bolder;">Grocery Shop</a>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="order.html">Order</a>
+    <a href="SpeakOrder.html">SpeakOrder</a>
+    <a href="contactUs.html">Contact</a>
+    <a href="login.html" style="color: #0b510d;">Login</a>
+    <a href="register.html" style="color: #0b510d;">Register</a>
+
+  </div>
+
+  <header>
+    <h1>Order Tracking</h1>
+  </header>
+
+  <main>
+    <section>
+      <label for="order-id">Enter Order ID:</label>
+      <input type="text" id="order-id" name="order-id" required>
+      <button id="track-order-btn">Track Order</button>
+    </section>
+
+    <section id="order-status" style="display: none;">
+      <h2>Order Status</h2>
+      <p id="status-message">Your order is being processed.</p>
+      <div id="map"></div>
+    </section>
+  </main>
+
+  <script>
+    // JavaScript code
+    document.addEventListener("DOMContentLoaded", function () {
+      const trackOrderBtn = document.getElementById("track-order-btn");
+      const orderStatusSection = document.getElementById("order-status");
+
+      // Track Order button click event listener
+      trackOrderBtn.addEventListener("click", function () {
+        const orderId = document.getElementById("order-id").value;
+
+        // Simulate order tracking (replace this with actual logic to fetch order status)
+        const orderStatus = getOrderStatus(orderId);
+        displayOrderStatus(orderStatus);
+      });
+
+      // Function to simulate fetching order status based on order ID
+      function getOrderStatus(orderId) {
+        // Simulate fetching order status from server
+        // Here, we'll just return a random status for demonstration purposes
+        const statuses = ["Order received", "Order processed", "Order shipped", "Out for delivery", "Delivered"];
+        const randomIndex = Math.floor(Math.random() * statuses.length);
+        return statuses[randomIndex];
+      }
+
+      // Function to display order status message and map
+      function displayOrderStatus(status) {
+        const statusMessage = document.getElementById("status-message");
+        statusMessage.textContent = `Your order status: ${status}`;
+        orderStatusSection.style.display = "block";
+
+        // Display map (replace this with your preferred map integration)
+        const map = document.getElementById("map");
+        // Here, we'll just display a static map image for demonstration purposes
+        map.innerHTML = `<img style="width:1000px; height:300px; display:flex; margin:auto;" src="https://as2.ftcdn.net/v2/jpg/04/46/57/47/1000_F_446574776_xRzD9h70n0032LUXJLfUgoQUWccd5Lqg.jpg" alt="Map">`;
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speak Order Grocery</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #list-container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        #grocery-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #grocery-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        #grocery-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        #input-error {
+            color: red;
+            display: none;
+        }
+
+        #controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #total-bill {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        section {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #order-confirmation {
+      display: none;
+      background-color: #dff0d8;
+      border: 1px solid #d6e9c6;
+      color: #3c763d;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+
+    .navbar {
+  background-color: #7eff83;
+  overflow: hidden;
+  border-bottom: 2px solid #ddd;
+  border: 2px solid black;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px  ;
+  
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #000000;
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar a:hover {
+  background-color: #45a049;
+  
+}
+
+.add{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-top: 10px;
+ 
+}
+.add button{
+  background-color: #41f550;
+}
+.navbar .btn  {
+  float: right;
+  background-color: #0b510d;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+.add{
+  width: 130px;
+  margin: auto;
+}
+.box{
+    width: 80%;
+    margin: auto;
+}
+    </style>
+</head>
+
+<body>
+      <!-- Navbar -->
+<div class="navbar">
+    <a href="#" class="logo"  style="font-weight: bolder;">Grocery Shop</a>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="order.html">Order</a>
+    <a href="SpeakOrder.html">SpeakOrder</a>
+    <a href="contactUs.html">Contact</a>
+    <a href="profile.html">Profile</a>
+    <a href="login.html"  style="color: #0b510d;">Login</a>
+    <a href="register.html"  style="color: #0b510d;">Register</a>
+  </div>
+    <h1>Speech Controlled Grocery List</h1>
+
+    <div id="controls">
+        <button id="start-btn" onclick="startSpeechRecognition()">Start</button>
+        <button id="stop-btn" onclick="stopSpeechRecognition()" disabled>Stop</button>
+    </div>
+
+    <div id="list-container">
+        <ul id="grocery-list">
+            <!-- List items will be added here -->
+        </ul>
+        <p id="input-error">Sorry, your browser doesn't support speech recognition.</p>
+    </div>
+
+    <div id="total-bill">
+        <h2>Shopping Cart</h2>
+        <ul>
+            <!-- Cart items dynamically added here using JavaScript -->
+        </ul>
+        Total Bill: ₹<span id="bill-total">0.00</span>
+
+    </div>
+    <section class="box" id="delivery-details">
+        <h2>Delivery Details</h2>
+        <form id="delivery-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required><br>
+  
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required><br>
+  
+          <label for="address">Address:</label>
+          <textarea id="address" name="address" required></textarea><br>
+  
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" name="phone" required><br>
+  
+          <button type="submit">Place Order</button>
+        </form>
+      </section>
+      <section class="box" id="order-confirmation">
+        <h2>Order Confirmation</h2>
+        <p>Your order has been successfully placed!</p>
+      </section>
+
+    <script>
+        // JavaScript code
+        const groceryList = document.getElementById("grocery-list");
+        const inputError = document.getElementById("input-error");
+        const billTotal = document.getElementById("bill-total");
+        let recognition;
+        let totalBill = 0;
+        const CONSTANT_AMOUNT = 10; // Constant amount to add to the bill
+
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function (event) {
+                const item = event.results[0][0].transcript.trim();
+                addItemToList(item);
+            };
+
+            recognition.onerror = function (event) {
+                console.error("Speech recognition error:", event.error);
+            };
+        } else {
+            inputError.style.display = "block";
+        }
+
+        function addItemToList(item) {
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            groceryList.appendChild(listItem);
+
+            totalBill += CONSTANT_AMOUNT; // Add constant amount to the bill
+            updateTotalBill();
+        }
+
+        function updateTotalBill() {
+            billTotal.textContent = totalBill.toFixed(2);
+        }
+
+        function startSpeechRecognition() {
+            if (recognition) {
+                recognition.start();
+                document.getElementById("start-btn").disabled = true;
+                document.getElementById("stop-btn").disabled = false;
+            }
+        }
+
+        function stopSpeechRecognition() {
+            if (recognition) {
+                recognition.stop();
+                document.getElementById("start-btn").disabled = false;
+                document.getElementById("stop-btn").disabled = true;
+            }
+        }
+    </script>
+    <script>
+        // JavaScript code
+        document.addEventListener("DOMContentLoaded", function() {
+          const deliveryForm = document.getElementById("delivery-form");
+          const orderConfirmation = document.getElementById("order-confirmation");
+      
+          // Submit event listener for the delivery form
+          deliveryForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+      
+            // Simulate form submission (replace this with actual AJAX request to server)
+            // Here, we're just showing the order confirmation message
+            orderConfirmation.style.display = "block";
+            // You can also redirect the user to a "Thank You" page
+            // window.location.href = "thankyou.html";
+          });
+        });
+      </script>
+</body>
+
+</html>
